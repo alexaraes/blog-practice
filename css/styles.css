@@ -1,0 +1,58 @@
+body{
+	font-family: Avenir;
+}
+nav {
+	position: fixed;
+}
+#container {
+	width: 100%;
+	height: 600px;
+	text-align: center;
+	padding-top: 5%;
+}
+.homediv {
+	font-size: 40px;
+}
+input {
+	font-family: Avenir;
+	margin-bottom: 15px;
+	width: 15%;
+	height: 25px;
+	text-align: center;
+	font-size: 15px;
+	border: 1px solid black;
+}
+
+label {
+	font-size: 25px;
+}
+a{
+	font-size: 15px;
+	text-decoration: none;
+	color: black;
+}
+a:hover {
+	color: gray;
+	text-decoration: underline;
+}
+button {
+	font-family: Avenir;
+	width: 8%;
+	height: 35px;
+	font-size: 23px;
+	border: 1px solid black;
+	color: black;
+	background-color: white;
+	margin-top: 15px;
+}
+button:hover {
+	color: white;
+	background-color: black;
+}
+
+.errorText {
+	font-family: Avenir;
+	color: red;
+	font-size: 18px;
+	margin-bottom: 10px;
+}
