@@ -27,7 +27,7 @@ module.exports = React.createClass({
 					<div className="linkDiv"><a href="#home"> Read </a></div>
 					<div className="linkDiv"><a href="#" onClick={this.onLogOut}> Log out</a></div>
 					<div className="searchForm">
-						<form type="submit" onSubmit={this.onSearch}>
+						<form role="search" onSubmit={this.onSearch}>
 							<input ref="search" className="searchBar" type="text" />
 							<button className="searchBtn" type="submit">Search!</button>
 						</form>
@@ -47,6 +47,10 @@ module.exports = React.createClass({
 	},
 	onSearch: function() {
 		console.log('attempted search');
-		this.props.myApp.navigate('/search/'+this.refs.search.getDOMNode().value, {trigger: true});
+		var that = this;
+		var search = this.refs.search.getDOMNode().value;
+		if(search){
+			that.props.myApp.navigate("search/"+search, {trigger: true});
+		}
 	}
 });

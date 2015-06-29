@@ -36099,7 +36099,7 @@ module.exports = React.createClass({
 					{ className: 'searchForm' },
 					React.createElement(
 						'form',
-						{ type: 'submit', onSubmit: this.onSearch },
+						{ role: 'search', onSubmit: this.onSearch },
 						React.createElement('input', { ref: 'search', className: 'searchBar', type: 'text' }),
 						React.createElement(
 							'button',
@@ -36130,7 +36130,11 @@ module.exports = React.createClass({
 	},
 	onSearch: function onSearch() {
 		console.log('attempted search');
-		this.props.myApp.navigate('/search/' + this.refs.search.getDOMNode().value, { trigger: true });
+		var that = this;
+		var search = this.refs.search.getDOMNode().value;
+		if (search) {
+			that.props.myApp.navigate('search/' + search, { trigger: true });
+		}
 	}
 });
 
@@ -36166,17 +36170,17 @@ module.exports = React.createClass({
 				),
 				React.createElement(
 					'div',
-					{ className: 'postDate' },
-					postDate
-				),
-				React.createElement(
-					'div',
 					null,
 					React.createElement(
 						'a',
 						{ href: '#category/' + postModel.get('category'), className: 'postCat' },
 						postModel.get('category')
 					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'postDate' },
+					postDate
 				)
 			);
 		});
@@ -36196,7 +36200,6 @@ module.exports = React.createClass({
 'use strict';
 
 var React = require('react');
-var NewUser = require('../models/UserModel');
 var _ = require('backbone/node_modules/underscore');
 
 module.exports = React.createClass({
@@ -36210,7 +36213,7 @@ module.exports = React.createClass({
 	render: function render() {
 		return React.createElement(
 			'form',
-			{ type: 'submit', ref: 'regForm', onSubmit: this.register },
+			{ className: 'regForm', type: 'submit', ref: 'regForm', onSubmit: this.register },
 			React.createElement(
 				'label',
 				null,
@@ -36287,8 +36290,6 @@ module.exports = React.createClass({
 		this.props.user.set('email', that.refs.email.getDOMNode().value);
 		this.props.user.set('password', that.refs.password.getDOMNode().value);
 
-		console.log(user.get('email'));
-
 		if (!this.props.user.get('email')) {
 			errors.email = 'please enter an email address';
 		}
@@ -36298,7 +36299,7 @@ module.exports = React.createClass({
 		if (!this.props.user.get('password')) {
 			errors.password = 'please enter a password';
 		}
-		if (this.props.useruser.get('password') !== that.refs.verifyPass.getDOMNode().value) {
+		if (this.props.user.get('password') !== that.refs.verifyPass.getDOMNode().value) {
 			errors.isPass = 'please make sure your passwords match';
 		}
 		console.log(errors);
@@ -36320,7 +36321,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"../models/UserModel":173,"backbone/node_modules/underscore":4,"react":163}],170:[function(require,module,exports){
+},{"backbone/node_modules/underscore":4,"react":163}],170:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -36486,8 +36487,6 @@ var postList = React.createElement(PostListComponent, { myApp: myApp, posts: pos
 
 var containerEl = document.getElementById('container');
 
-React.render(React.createElement(NavBarComponent, { user: user, myApp: myApp }), document.getElementById('nav'));
-
 function fetchPosts(category, query) {
 	var q = {};
 	if (category) {
@@ -36527,7 +36526,7 @@ var App = Backbone.Router.extend({
 		React.render(postList, containerEl);
 	},
 	search: function search(query) {
-		fetchPosts(query);
+		fetchPosts(null, query);
 		React.render(postList, containerEl);
 	},
 	feed: function feed(posts) {
@@ -36541,6 +36540,8 @@ var App = Backbone.Router.extend({
 
 var myApp = new App();
 Backbone.history.start();
+
+React.render(React.createElement(NavBarComponent, { user: user, myApp: myApp }), document.getElementById('nav'));
 
 user.me();
 

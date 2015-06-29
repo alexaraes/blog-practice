@@ -1,5 +1,4 @@
 var React = require('react');
-var NewUser = require('../models/UserModel');
 var _ = require('backbone/node_modules/underscore');
 
 module.exports = React.createClass({
@@ -10,7 +9,7 @@ module.exports = React.createClass({
 	},
 	render: function() {
 		return (
-			<form type="submit" ref="regForm" onSubmit={this.register}>
+			<form className="regForm" type="submit" ref="regForm" onSubmit={this.register}>
 				<label>Email</label><br />
 				<input type="text" ref="email" /><br />
 				<div className="errorText">{this.state.errors.email}</div>
@@ -43,7 +42,6 @@ module.exports = React.createClass({
 			this.props.user.set("email", that.refs.email.getDOMNode().value);
 			this.props.user.set("password", that.refs.password.getDOMNode().value);
 
-		console.log(user.get('email'));
 
 		if (!this.props.user.get('email')) {
 			errors.email = 'please enter an email address';
@@ -54,7 +52,7 @@ module.exports = React.createClass({
 		if (!this.props.user.get('password')) {
 			errors.password = 'please enter a password';
 		}
-		if (this.props.useruser.get('password') !== that.refs.verifyPass.getDOMNode().value) {
+		if (this.props.user.get('password') !== that.refs.verifyPass.getDOMNode().value) {
 			errors.isPass = 'please make sure your passwords match';
 		}
 		console.log(errors);

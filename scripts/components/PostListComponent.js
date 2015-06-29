@@ -14,8 +14,8 @@ module.exports = React.createClass({
 				<div className="postListDiv" key={postModel.cid}>
 					<div className="postTitle">{postModel.get('title')}</div>
 					<div className="postBody">{postModel.get('body')}</div>
-					<div className="postDate">{postDate}</div>
 					<div><a href={'#category/'+postModel.get('category')} className="postCat">{postModel.get('category')}</a></div>
+					<div className="postDate">{postDate}</div>
 				</div>
 			);
 		});

@@ -16,11 +16,6 @@ var postList = (<PostListComponent myApp={myApp} posts={posts} />);
 
 var containerEl = document.getElementById('container');
 
-React.render(
-	<NavBarComponent user={user} myApp={myApp} />,
-	document.getElementById('nav')
-);
-
 function fetchPosts(category, query) {
 	var q = {};
 	if(category) {
@@ -69,7 +64,7 @@ var App = Backbone.Router.extend({
 		React.render(postList, containerEl);
 	},
 	search: function(query) {
-		fetchPosts(query);
+		fetchPosts(null, query);
 		React.render(postList, containerEl);
 	},
 	feed: function(posts) {
@@ -89,5 +84,10 @@ var App = Backbone.Router.extend({
 
 var myApp = new App();
 Backbone.history.start();
+
+React.render(
+	<NavBarComponent user={user} myApp={myApp} />,
+	document.getElementById('nav')
+);
 
 user.me();
