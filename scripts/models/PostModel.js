@@ -4,8 +4,9 @@ var Backbone = require('backparse')(parseSettings);
 module.exports = Backbone.Model.extend({
     defaults: {
         title: '',
-        body: ''
+        body: '',
+        category: ''
     },
-    parseClassName: '_User',
+    parseClassName: 'Post',
     idAttribute: 'objectId'
 });

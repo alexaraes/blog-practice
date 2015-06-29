@@ -1,5 +1,4 @@
 var React = require('react');
-var User = require('../models/UserModel');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -9,16 +8,18 @@ module.exports = React.createClass({
 	},
 	render: function() {
 		return (
-			<form type="submit" ref="regForm" onSubmit={this.logIn}>
-				<label>Username</label><br />
-				<input type="text" ref="username" /><br />
-				<div className="errorText">{this.state.errors.username}</div>
-				<label>Password</label><br />
-				<input type="password" ref="password" /><br />
-				<div className="errorText">{this.state.errors.password}</div>
-				<div className="errorText" ref="serverError"></div>
-				<button type="submit">Login</button><br />
-			</form>
+			<div>
+				<form type="submit" ref="regForm" className="loginForm" onSubmit={this.logIn}>
+					<label>Username</label><br />
+					<input type="text" ref="username" /><br />
+					<div className="errorText">{this.state.errors.username}</div>
+					<label>Password</label><br />
+					<input type="password" ref="password" /><br />
+					<div className="errorText">{this.state.errors.password}</div>
+					<div className="errorText" ref="serverError"></div>
+					<button type="submit">Login</button><br />
+				</form>
+			</div>
 		);
 	},
 	logIn: function(e) {
@@ -30,18 +31,16 @@ module.exports = React.createClass({
 
 		e.preventDefault();
 
-		if (that.refs.username.getDOMNode().value === '') {
+		if (username === '') {
 			errors.username = 'Please enter your username.';
 		}
-		if (that.refs.password.getDOMNode().value === '') {
+		if (password === '') {
 			errors.password = 'Please enter your password.';
 		}
 
 		that.setState({errors: errors});
 
-		var currentUser = new User();
-
-		currentUser.login(
+		this.props.user.login(
 			{			
 			username: that.refs.username.getDOMNode().value,
 			password: that.refs.password.getDOMNode().value
@@ -49,10 +48,10 @@ module.exports = React.createClass({
 			{
 			    success: function(userModel) {
 			        console.log('user was logged in');
-			        that.props.myApp.navigate('home', {trigger: true});
+			        that.props.myApp.navigate('submitpost', {trigger: true});
 			    },
 			    error: function(userModel, response) {
-			    	that.refs.serverError.getDOMNode().innerHTML = response.responseJSON.error;
+			    	that.refs.serverError.getDOMNode().innerHTML = 'Oops! Something went wrong.';
 			        console.log('user was not logged in', response.responseJSON);
 			    }
 		});

@@ -22,7 +22,9 @@
   },
   "dependencies": {
     "backbone": "^1.2.1",
+    "backparse": "alarner/backparse",
     "jquery": "^2.1.4",
+    "moment": "^2.10.3",
     "react": "^0.13.3"
   }
 }

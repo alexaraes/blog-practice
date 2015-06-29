@@ -39,33 +39,32 @@ module.exports = React.createClass({
 		var that = this;
 		var errors = {};
 
-		var newUser = new NewUser( {
-			email: that.refs.email.getDOMNode().value,
-			username: that.refs.username.getDOMNode().value,
-			password: that.refs.password.getDOMNode().value
-		});
+			this.props.user.set("username", that.refs.username.getDOMNode().value);
+			this.props.user.set("email", that.refs.email.getDOMNode().value);
+			this.props.user.set("password", that.refs.password.getDOMNode().value);
 
-		console.log(newUser.get('email'));
+		console.log(user.get('email'));
 
-		if (!newUser.get('email')) {
+		if (!this.props.user.get('email')) {
 			errors.email = 'please enter an email address';
 		}
-		if (!newUser.get('username')) {
+		if (!this.props.user.get('username')) {
 			errors.username = 'please enter a username';
 		}
-		if (!newUser.get('password')) {
+		if (!this.props.user.get('password')) {
 			errors.password = 'please enter a password';
 		}
-		if (newUser.get('password') !== that.refs.verifyPass.getDOMNode().value) {
+		if (this.props.useruser.get('password') !== that.refs.verifyPass.getDOMNode().value) {
 			errors.isPass = 'please make sure your passwords match';
 		}
 		console.log(errors);
 		if(_.isEmpty(errors)) {
 
-			newUser.save(
+			this.props.user.save(
 				null, 
 				{
 			    success: function(userModel) {
+			    	that.props.myApp.navigate('home', {trigger: true});
 			        console.log('user was registered');
 			    },
 			    error: function(userModel, response) {
